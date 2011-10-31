@@ -33,6 +33,7 @@ PluginBase.registered_plugins.each do |plugin|
 			exit
 		end
 		download_queue.each do |url_name|
+                  puts "url: " + url_name.inspect
 			result = DownloadHelper.save_file(url_name[:url], url_name[:name])
 			if result
 				puts "Download for #{url_name[:name]} successful."
