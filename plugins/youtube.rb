@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Youtube < PluginBase
 	#this will be called by the main app to check weather this plugin is responsible for the url passed
 	def self.matches_provider?(url)
@@ -45,7 +46,7 @@ class Youtube < PluginBase
 		video_id = url[/(v|embed)[\/=]([^\/\?\&]*)/,2]
 		if video_id.nil?
 			puts "no video id found."
-			exit
+			return nil
 		else
 			puts "[YOUTUBE] ID FOUND: #{video_id}"
 		end
@@ -93,7 +94,7 @@ class Youtube < PluginBase
 		
 		if video_info_hash["status"] == "fail"
 			puts "Error: embedding disabled, no video info found"
-			exit
+			return nil
 		end
 		
 		title = video_info_hash["title"]
@@ -131,7 +132,7 @@ class Youtube < PluginBase
 		#video_info_hash.keys.sort.each{|key| puts "#{key} : #{video_info_hash[key]}" }
     	download_url = video_info_hash["url_encoded_fmt_stream_map"][selected_format]
 		file_name = title.delete("\"'").gsub(/[^0-9A-Za-z]/, '_') + "." + format_ext[selected_format][:extension]
-		puts "downloading to " + file_name
+		puts "downloading to " + file_name + " from " + download_url
 		{:url => download_url, :name => file_name}
 	end
 end
