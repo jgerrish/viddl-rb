@@ -98,8 +98,8 @@ class Youtube < PluginBase
 		}.flatten]
 		
 		if video_info_hash["status"] == "fail"
-			puts "Error: embedding disabled, no video info found"
-			return nil
+                  puts "Error: embedding disabled, no video info found"
+                  return { "status" => "failed", "message" => "Error: embedding disabled, no video info found" }
 		end
 		
 		title = video_info_hash["title"]
